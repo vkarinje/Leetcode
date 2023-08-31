@@ -11,3 +11,6 @@ class Solution(object):
                     currentstreak=currentstreak+1
                 longest_streak=max(currentstreak,longest_streak)
         return longest_streak 
+
+time: O(n)
+space:O(n)
