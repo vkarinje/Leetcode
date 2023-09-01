@@ -14,3 +14,21 @@ class Solution(object):
 
 time:O(n)
 Space:O(n)
+
+using two pointers:
+
+class Solution(object):
+    def twoSum(self, numbers, target):
+        i=0
+        l=len(numbers)-1
+        while (i<l):
+            sum=numbers[i]+numbers[l]
+            if sum<target:
+                i=i+1
+            if sum>target:
+                l=l-1
+            if sum==target:
+                return [i+1,l+1]
+
+time:O(n)
+space:O(n)
