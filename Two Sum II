@@ -1,0 +1,16 @@
+class Solution(object):
+    def twoSum(self, numbers, target):
+        """
+        :type numbers: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        res={}
+        for ind,val in enumerate(numbers):
+            diff=target-numbers[ind]
+            if diff in res:
+                return [res[diff],ind+1]
+            res[val]=ind+1
+
+time:O(n)
+Space:O(n)
