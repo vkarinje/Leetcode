@@ -1,0 +1,31 @@
+class Solution(object):
+    def threeSum(self, nums):
+        nums.sort()
+        res=[]
+        i=0
+        while i<len(nums):
+            if i==0 or nums[i]!=nums[i-1]:
+                self.twosum(i,res,nums)
+            i=i+1
+        return res
+    
+    def twosum(self,i,res,nums):
+        low=i+1
+        high=len(nums)-1
+        while low<high:
+            sum = nums[i]+nums[low]+nums[high]
+            if sum == 0:
+                res.append([nums[i],nums[low],nums[high]])
+                low=low+1
+                high=high-1
+                while nums[low]==nums[low-1]and low<high:
+                    low=low+1
+                while nums[high]==nums[high+1] and low<high:
+                    high = high-1
+            elif sum<0 :
+                low=low+1
+            else:
+                high=high-1
+
+Time : O(nlogn)
+Space: O(n^2)
