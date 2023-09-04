@@ -1,0 +1,39 @@
+class Solution(object):
+    def merge(self, nums1, m, nums2, n):
+        """
+        :type nums1: List[int]
+        :type m: int
+        :type nums2: List[int]
+        :type n: int
+        :rtype: None Do not return anything, modify nums1 in-place instead.
+        """
+        nums1copy=[]
+        i=0
+        pointer1=0
+        pointer2=0
+        while i<m:
+            nums1copy.append(nums1[i])
+            i=i+1
+            print(nums1copy)
+        i=0
+        while i<n+m and pointer1<m and pointer2<n:
+            if nums1copy[pointer1]<nums2[pointer2]:
+                nums1[i]=nums1copy[pointer1]
+                i=i+1
+                pointer1+=1
+            else:
+                nums1[i]=nums2[pointer2]
+                i=i+1
+                pointer2+=1
+        while pointer1<m:
+            nums1[i]=nums1copy[pointer1]
+            i=i+1
+            pointer1+=1
+        while pointer2<n:
+            nums1[i]=nums2[pointer2]
+            i=i+1
+            pointer2+=1
+        
+
+time:O(n+m)
+space:O(m)//elements in nums1 as we are creating a copy of num1 this is consuming space
