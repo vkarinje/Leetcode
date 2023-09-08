@@ -20,3 +20,4 @@ class Solution(object):
 
 time:O(n)
 space:O(min(m,n))
+where 'n' is the length of the input string s, and 'm' is the size of the character set (i.e., the number of distinct characters in the input string)
