@@ -1,0 +1,15 @@
+class Solution(object):
+    def hasCycle(self, head):
+        """
+        :type head: ListNode
+        :rtype: bool
+        """
+        ans=set()
+        while head:      //head here is the address of starting node
+            if head not in ans:
+                ans.add(head)
+                head=head.next // head.next has the address of next node
+            else:
+                return True
+        return False
+Time and Space: O(N)
