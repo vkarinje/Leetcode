@@ -19,3 +19,5 @@ class Solution(object):
             maxLength=max(maxLength,right-left+1)
             right=right+1
         return maxLength
+Time :O(n)
+Space:O(26)==O(1) // store={} we store 26 characaters at most
