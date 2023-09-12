@@ -1,0 +1,29 @@
+def reorderList(self, head):
+        """
+        :type head: ListNode
+        :rtype: None Do not return anything, modify head in-place instead.
+        """
+        slow=head
+        fast=head
+        while fast and fast.next:
+            slow=slow.next
+            fast=fast.next.next
+        sec_head=slow
+        prev=None
+        while sec_head:
+            temp=sec_head.next
+            sec_head.next=prev
+            prev=sec_head
+            sec_head=temp
+        first=head
+        second=prev
+        while second.next!=None:
+            some_temp=first.next
+            first.next=second
+            first=some_temp
+            some_temp=second.next
+            second.next=first
+            second=some_temp
+
+Time:O(N)
+Space:O(1)
