@@ -8,7 +8,7 @@ def reorderList(self, head):
         while fast and fast.next:
             slow=slow.next
             fast=fast.next.next
-        sec_head=slow
+        sec_head=slow     //finding the mid. To find the mid, the time complexity is O(N/2)
         prev=None
         while sec_head:
             temp=sec_head.next
@@ -16,7 +16,7 @@ def reorderList(self, head):
             prev=sec_head
             sec_head=temp
         first=head
-        second=prev
+        second=prev     // reversing second half of the list. Time:O(N/2)
         while second.next!=None:
             some_temp=first.next
             first.next=second
