@@ -30,5 +30,5 @@ class Solution(object):
             if slow==fast:
                 return True
         return False
-Time:O(n)
+Time:O(n), O(n+k)
 Space:O(1)
