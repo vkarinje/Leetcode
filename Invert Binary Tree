@@ -1,0 +1,17 @@
+class Solution(object):
+    def invertTree(self, root):
+        """
+        :type root: TreeNode
+        :rtype: TreeNode
+        """
+        if root==None:
+            return None
+        left=self.invertTree(root.left)
+        right=self.invertTree(root.right)
+        root.right=left
+        root.left=right
+        return root
+Time: O(N)
+Space:O(H) H-height of the tree - worst
+best - O(logN)
+      
