@@ -1,0 +1,26 @@
+class Solution(object):
+    def isSubtree(self, root, subRoot):
+        """
+        :type root: TreeNode
+        :type subRoot: TreeNode
+        :rtype: bool
+        """
+        if (root==None and subRoot==None):
+            return True
+        if(root==None or subRoot==None):
+            return False
+        if (self.issameTree(root,subRoot)):
+            return True
+        return (self.isSubtree(root.left, subRoot) or self.isSubtree(root.right,subRoot))
+   
+    
+    def issameTree(self,p,q):
+        if (p==None and q==None):
+            return True
+        if (p==None or q==None):
+            return False
+        if (p.val != q.val):
+            return False
+        return (self.issameTree(p.left,q.left) and self.issameTree(p.right,q.right))
+Time: O(N*M)
+Space:O(N+M)
