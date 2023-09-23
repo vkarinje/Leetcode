@@ -21,6 +21,6 @@ class Solution(object):
                     return False
                 ans.pop()
                 i=i+1
-        return not ans 
+        return not ans // not ans will return True if stack is empty . not ans will return False if stack is not empty
                 
 Time and Space:O(N)
