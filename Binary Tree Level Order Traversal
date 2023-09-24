@@ -1,0 +1,27 @@
+class Solution(object):
+    def levelOrder(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        """
+        res=[]
+        if root==None:
+            return res
+        
+        queue=deque()
+        queue.append(root)
+
+        while queue:
+            current_level=[]
+            size = len(queue)
+            i=0
+            while i<size:
+                current_node=queue.popleft()
+                current_level.append(current_node.val)
+                if current_node.left!=None:
+                    queue.append(current_node.left)
+                if current_node.right!=None:
+                    queue.append(current_node.right)
+                i=i+1
+            res.append(current_level)
+        return res
