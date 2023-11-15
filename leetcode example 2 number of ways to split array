@@ -18,3 +18,20 @@ print(sol)
 
 Time:O(n)
 Space:O(n)
+
+another way to improve space complexity to O(1) is npt to use an array
+
+class Solution(object):
+    def numsub(self,nums):
+        ans=0
+        total=sum(nums)
+        lefts=0
+        for i in range(len(nums)-1):
+            lefts=lefts+nums[i]      // this part does the prefix calculation
+            rights=total-lefts
+            if lefts>=rights:
+                ans=ans+1
+        return ans
+nums=[10,4,-8,7]
+sol=Solution().numsub(nums)
+print(sol)
