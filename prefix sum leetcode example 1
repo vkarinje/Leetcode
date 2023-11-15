@@ -16,5 +16,5 @@ limit=13
 sol=Solution().preSum(nums,queries,limit)
 print(sol)
 
-Time: O(n) TO BUILD THE prefix and O(1) for queris
+Time: O(n+m) TO BUILD THE prefix O(n) and m is the length of the queries
 Space:O(n) as we are buidling the prefix sum of n elements
