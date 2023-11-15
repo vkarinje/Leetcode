@@ -1,0 +1,26 @@
+class Solution(object):
+    def runningSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        prefix=[nums[0]]
+        for i in range(1,len(nums)):
+            prefix.append(nums[i]+prefix[i-1]),
+        return prefix
+
+Time:O(n) Space:O(n) as prefix is created
+
+better solution:
+
+class Solution(object):
+    def runningSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        
+        for i in range(1,len(nums)):
+            nums[i]=nums[i]+nums[i-1]
+        return nums
+  Time:O(n) space:O(1) as we are only using nums by modifying it
