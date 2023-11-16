@@ -1,0 +1,14 @@
+class Solution(object):
+    def countElements(self, arr):
+        """
+        :type arr: List[int]
+        :rtype: int
+        """
+        count=0
+        num=set(arr)
+        for x in arr:
+            if x+1 in num:
+                count=count+1
+        return count
+  Time:O(n)
+  Space:O(n) //number of unique elements in the set
