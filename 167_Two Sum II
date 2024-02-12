@@ -32,3 +32,32 @@ class Solution(object):
 
 time:O(n)
 space:O(n)
+
+JAVA two pointers:
+class Solution {
+    public int[] twoSum(int[] numbers, int target) {
+        int[] out=new int[2];
+        int left=0;
+        int right=numbers.length-1;
+        int sum=0;
+        while(left<right){
+            sum=numbers[left]+numbers[right];
+            if(sum==target){
+                out[0]=left+1;
+                out[1]=right+1;
+                return out;
+               
+            }
+            else if(sum<target){
+                left++;
+            }
+            else if(sum>target){
+                right--;
+            }
+            
+        }
+         return null;
+        
+    }
+}
+TC:O(n) SC:O(n);
