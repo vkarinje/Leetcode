@@ -27,5 +27,5 @@ class Solution(object):
             else:
                 high=high-1
 
-Time : O(nlogn)
-Space: O(n^2)
+Time : O(n^2)
+Space: O(1)
