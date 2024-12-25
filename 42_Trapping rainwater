@@ -5,9 +5,9 @@ class Solution {
         int leftbar=height[0];
         int rightbar=height[height.length-1];
         int ans=0;
-        while(left<=right){
-            if(leftbar<rightbar){
-                if(height[left]>leftbar){
+        while(left<=right){//until left and right pointers meet
+            if(leftbar<rightbar){//which  bar is the limiting bar
+                if(height[left]>leftbar){//if the element that we are seeing now becomes the highest element at left it will not store any water
                     leftbar=height[left];
                 }
                 else{
