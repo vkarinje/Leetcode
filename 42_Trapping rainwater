@@ -1,0 +1,34 @@
+class Solution {
+    public int trap(int[] height) {
+        int left=0;
+        int right=height.length-1;
+        int leftbar=height[0];
+        int rightbar=height[height.length-1];
+        int ans=0;
+        while(left<=right){
+            if(leftbar<rightbar){
+                if(height[left]>leftbar){
+                    leftbar=height[left];
+                }
+                else{
+                    ans+=leftbar-height[left];
+                    left++;
+                }
+            }
+            else{
+                if(height[right]>rightbar){
+                    rightbar=height[right];
+
+                }
+                else{
+                    ans+=rightbar-height[right];
+                    right--;
+                }
+            }
+        }
+        return ans;
+        
+    }
+}
+TC:O(n)
+SC:O(1)
