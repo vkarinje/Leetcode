@@ -1,0 +1,24 @@
+class Solution {
+    public int[][] highFive(int[][] items) {
+        TreeMap<Integer,Queue<Integer>> scores=new TreeMap<>();//Tree map as it stores id in ascending order. 1,2,3/
+        for(int[] item:items){
+            int id=item[0];
+            int score=item[1];
+            if(!scores.containsKey(id)){
+                scores.put(id,new PriorityQueue<>((a,b)->(b-a)));//Priority queue usaully used minheap to store values in ascending order. But are storing in descendinvg order by doing (a,b)->(b-a)
+            }
+            scores.get(id).add(score);//immediately after creating the queue the score is inserted. remember this is not in the else loop.
+        }
+        List<int[]> ans=new ArrayList<>();//list to store arrays containing id and score
+        for(int id:scores.keySet()){
+            int sum=0;
+            for(int i=0;i<5;i++){
+                sum=sum+scores.get(id).poll();
+            }
+            ans.add(new int[]{id,sum/5});//appending the array containing id and score to the list
+           
+        }
+         int[][] ansArray=new int[ans.size()][];//two dimensional array,
+         return ans.toArray(ansArray);
+    }
+}
