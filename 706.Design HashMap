@@ -1,0 +1,81 @@
+class MyHashMap {
+    LinkedList<Entry>[] map;//array of LinkedList with entry/Each linked list stores a key-value pair.Represents buckets of the hash map.
+    public static int size=769;//a prime number that we take as the size of the array
+    public MyHashMap() {
+        map=new LinkedList[size];//initilaizing the size of the map array as 769
+        
+    }
+    
+    public void put(int key, int value) {
+        
+        int index=key%size;//this step indicates at what index should i put. suppose if key is 21. modulo will return 1, so the key 21 and its value is stored at index 1.
+        if (map[index]==null) {//checks if the index value(linkedlist)is null
+          map[index]= new LinkedList<Entry>();//A new linkedlist that will conatin key value pair is created
+          map[index].add(new Entry(key,value));//new key-value pair is added
+          return;
+        }
+        else{//if already there is a linkedlist at this index
+            for(Entry entries:map[index]){//it iterates through the pairs stored at that index
+                if(entries.key==key){//Suppose that I am at index 1.I already have <1,2> stored.now wants to update it to <1,4> . So i am checking if my key value is 1 here or no because as I am at index 1, the kay can be 11,21,31 or anything as the modulo will return 1.
+                    entries.val=value;//updating <1,2> to <1,4>
+                    return;
+                }
+            }
+            map[index].add(new Entry(key,value));//I am index 1. I have <1,2>Now insering<11,1> or<21,1>.
+        }
+
+    }
+    
+    public int get(int key) {
+        
+        int index=key%size;//get the index;
+        LinkedList<Entry> entries=map[index];//gets the linkedlist for that index
+        if (entries==null) return -1;//if no pairs found return -1;
+        for(Entry entry:entries){//iterate through pairs at the index
+            if(entry.key==key){
+                return entry.val;
+            }
+
+
+        }
+        return -1;//return -1 if no matching key was found
+
+    }
+    
+    public void remove(int key) {
+        int index=key%size;
+        if(map[index]==null) return;//returns null if there is no linkedlist at the index
+        else{
+            Entry toRemove=null;//remove in linkedlist is based on objects
+            for(Entry entry:map[index]){//iterating through pairs in the bucket
+               if(entry.key==key){
+                 toRemove=entry;//suppose I have to remove<1,2> this will be assigned to toRemove
+
+               }
+
+            }
+            if(toRemove==null) return;//key was not present in the bucket
+            map[index].remove(toRemove);
+        }
+        
+    }
+}
+public class Entry{
+    public int key;
+    public int val;
+    public Entry(int key, int val){
+        this.key=key;
+        this.val=val;
+    }
+}
+
+/**
+ * Your MyHashMap object will be instantiated and called as such:
+ * MyHashMap obj = new MyHashMap();
+ * obj.put(key,value);
+ * int param_2 = obj.get(key);
+ * obj.remove(key);
+ */
+
+ TC:O(1)
+ SC:O(n+size)size for the array of buckets and n for storing n key-value pairs
