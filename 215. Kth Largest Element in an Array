@@ -1,0 +1,56 @@
+class Solution {
+    private void swap(int[] nums, int x, int y){
+        int temp=nums[x];
+        nums[x]=nums[y];
+        nums[y]=temp;
+    }
+    public int partition_algo(int[] nums, int L, int R){
+        int P=nums[L];//i am choosing my pivot as leftmost element;
+        int i=L+1;
+        int j=R;
+        while(i<=j){// until i and j crosses over
+           if(nums[i]<P && nums[j]>P){
+            swap(nums, i,j);//i want elements on left of pivot to be greater than P and elements on right of P to be lesser than P.
+            i++;
+            j--;
+           }
+           if(nums[i]>=P){//this is what i want so keep incrementing i
+            i++;
+           }
+           if(nums[j]<=P){
+            j--;//this is what i want so keep decrementing
+           }
+
+        }
+        swap(nums,L,j);//after the loop breaks i need to swap P which is nums[L] and the element at nums[j] to get the pivot at the correct position after sorting
+        return j;//now my pivot elemnt is at jth index
+
+    }
+    public int findKthLargest(int[] nums, int k) {
+        int n=nums.length;
+        int L=0;
+        int R=n-1;
+        int pivot_ind=0;
+        while(true){
+            pivot_ind=partition_algo(nums, L, R);
+            if(pivot_ind==k-1){//i found the kth largest element at pivot index. That means if i want 2nd largest element, i will find that in 1st index in decsending order as indexing starts from 0.
+            break;
+             
+
+                
+            }
+            else if(pivot_ind>k-1) {// suppoe if pivot is 4th largest element now in descending order but i want 2nd largest element. Then i need to search only in ;edt side of this pivot element      
+                 R=pivot_ind-1;
+
+            }
+            else{
+                L=pivot_ind+1; //search only in right side of the array if have 4th largest element as pivot but i need 6th largest element
+            }
+        }
+        return nums[pivot_ind];
+
+        
+    }
+}
+TC:O(n) best case O(n^2)
+SC:O(1)
