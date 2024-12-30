@@ -25,3 +25,36 @@ class Solution {
 }
 TC:O(N)
 SC:O(1)
+
+better way : same approach but time complexity is way better as we are not performing kadane algorithm twice to find maxsum and minsum
+
+class Solution {
+    public int maxSubarraySumCircular(int[] nums) {
+        int nonCircularSum=kadane(nums);//gives me max sum of non-circular array
+        int totalSum=0;
+        for(int i=0;i<nums.length;i++){
+            totalSum+=nums[i];//finding total sum of the entire given array
+            nums[i]=-nums[i];//i am inverting the elements of the given array to find the minimum subarray sum  of the given array.using the same kadane algorithm 
+        }
+        int circularSum=totalSum+kadane(nums);//the actual max sum of circular array is found by total sum-minimum subarray sum.as i have inverted the elements total sum - (-mimum subarray sum). so totalsum+kadanealdoresult
+        if(circularSum==0){// if -ve found no use for maxsum calculation
+            return nonCircularSum;
+        }
+        return Math.max(circularSum,nonCircularSum);//
+    }
+        int kadane(int[] nums){
+            int currSum=nums[0];
+            int maxSum=nums[0];
+            for(int i=1;i<nums.length;i++){
+                if(currSum<0) {
+                    currSum=0;//if negative element present we dont carry forward 
+                
+                }
+                currSum+=nums[i];
+                maxSum=Math.max(maxSum,currSum);
+            }
+            return maxSum;
+        }
+        
+}
+
