@@ -1,0 +1,42 @@
+class Solution {
+    public String fractionToDecimal(int numerator, int denominator) {
+        if(numerator==0) return "0";
+        if (denominator==0) return "";//divison by zero is not defined so return empty string
+        StringBuilder ans=new StringBuilder();
+        if(numerator<0 && denominator > 0 || numerator>0 && denominator<0) {
+            ans.append("-");//if numerator or denominator has a negative sign ans will have negative
+        }
+        long num=Math.abs((long) numerator);//to handle edge cases like integer.min_value;
+        long den=Math.abs((long) denominator);
+        long q=num/den;
+        long r=num%den;
+        ans.append(q);//appending quotient to stringbuilder
+        if(r==0){
+            return ans.toString();
+        }
+        else{
+            ans.append(".");
+            HashMap<Long, Integer> map=new HashMap<>();
+            while(r!=0){
+                if(map.containsKey(r)){
+                 int len=map.get(r);//to know where to inser the ()
+                 ans.insert(len,"(");
+                 ans.append(")");
+                 break;
+                }
+                else{
+                    map.put(r,ans.length());//ans.length() will tell us what was in the stringbuilder after '.' 
+                    r=r*10;//we keep adding zeros to remainder in the division process
+                    q=r/den;
+                    r=r%den;
+                    ans.append(q);
+
+                }
+                
+            }
+        }
+        return ans.toString();
+    }
+}
+TC:O(den) where den is the denominator
+SC:O(den) where den is the denominator
