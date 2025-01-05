@@ -2,7 +2,7 @@ class Solution {
     public String fractionToDecimal(int numerator, int denominator) {
         if(numerator==0) return "0";
         if (denominator==0) return "";//divison by zero is not defined so return empty string
-        StringBuilder ans=new StringBuilder();
+        StringBuilder ans=new StringBuilder();//string is immutable. StringBuilder is mutable.
         if(numerator<0 && denominator > 0 || numerator>0 && denominator<0) {
             ans.append("-");//if numerator or denominator has a negative sign ans will have negative
         }
