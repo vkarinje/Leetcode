@@ -6,7 +6,8 @@ class Solution {
         if(numerator<0 && denominator > 0 || numerator>0 && denominator<0) {
             ans.append("-");//if numerator or denominator has a negative sign ans will have negative
         }
-        long num=Math.abs((long) numerator);//to handle edge cases like integer.min_value;
+        long num=Math.abs((long) numerator);//Converts the numerator and denominator to their absolute values to simplify calculations.
+Casts them to long to avoid integer overflow when dealing with edge cases like Integer.MIN_VALUE / -1
         long den=Math.abs((long) denominator);
         long q=num/den;
         long r=num%den;
@@ -38,5 +39,5 @@ class Solution {
         return ans.toString();
     }
 }
-TC:O(den) where den is the denominator
-SC:O(den) where den is the denominator
+TC:O(n) where n is the number of digits in the decimal represnetation.
+SC:O(n). HashMap stores O(n) uniqure remainders where n is the number of digits in the fractional part. StringBuilder also stores O(N) for the final resul;t. So overall is O(n).
