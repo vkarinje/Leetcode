@@ -26,7 +26,7 @@ Casts them to long to avoid integer overflow when dealing with edge cases like I
                  break;
                 }
                 else{
-                    map.put(r,ans.length());//ans.length() will tell us what was in the stringbuilder after '.' 
+                    map.put(r,ans.length());//ans.length() will tell us what was in the stringbuilder after '.' //will tell us where did the rem appear first
                     r=r*10;//we keep adding zeros to remainder in the division process
                     q=r/den;
                     r=r%den;
