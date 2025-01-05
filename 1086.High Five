@@ -22,3 +22,36 @@ class Solution {
          return ans.toArray(ansArray);
     }
 }
+
+
+class Solution {
+    public int[][] highFive(int[][] items) {
+        HashMap<Integer, PriorityQueue<Integer>> map=new HashMap<>();
+        for(int[] item: items){
+            int id=item[0];
+            int score=item[1];
+            if(!map.containsKey(id)){
+                map.put(id, new PriorityQueue<>());//min heap
+            }
+            PriorityQueue<Integer> pq = map.get(id);
+            pq.add(score);
+            if(pq.size()>5) {//in minheap the smallest score is at the top of the heap. 
+                pq.poll();//removes top smallest scores until we have 5 highest scores left in the pq.
+            }
+        }
+        List<int[]> ans=new ArrayList<>();
+        for(int id:map.keySet()){
+            int sum=0;
+            PriorityQueue<Integer> pq= map.get(id);
+            while(!pq.isEmpty()){
+                sum+=pq.poll();
+            }
+            ans.add(new int[]{id,sum/5});
+
+
+        }
+        int[][] ansArray=new int[ans.size()][];
+        return ans.toArray(ansArray);
+    }
+}TC:O(n)
+SC:O(m) m is the number of unique student ids.
