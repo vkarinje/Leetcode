@@ -14,3 +14,59 @@ class Solution(object):
 
 time:O(n.m)
 space:O(n.m)
+
+
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        HashMap<String,List<String>>  map = new HashMap<>();
+        List<List<String>> ans= new ArrayList<>();
+        for(String item:strs){
+            char[] ch=item.toCharArray();
+            Arrays.sort(ch);
+            String key=new String(ch);
+            if(!map.containsKey(key)){
+                map.put(key, new ArrayList<>());
+
+            }
+            map.get(key).add(item);
+        }
+        ans.addAll(map.values());
+        return ans;
+        
+    }
+}
+TC:O(n.klogk) n is the number of strings and k is the average length of the string.
+SC:O(n.k)stores all n string with their keys
+
+
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        HashMap<String,List<String>> map=new HashMap<>();
+        List<List<String>> res=new ArrayList<>();
+        
+        for(String s:strs){
+            int[] count=new int[26];
+            for(char c:s.toCharArray()){
+                count[c-'a']++;
+
+            }
+            StringBuilder sb=new StringBuilder();
+            for(int i=0;i<26;i++){
+                sb.append(count[i]).append("#");
+            }
+            String key=sb.toString();
+            if(!map.containsKey(key)){
+                map.put(key, new ArrayList<>());
+            }
+            map.get(key).add(s);
+
+
+        }
+        res.addAll(map.values());
+        return res;
+
+        
+    }
+}
+TC:O(n.k)n is no.of string and k is length of the string
+SC:O(n.k)
