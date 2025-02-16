@@ -126,5 +126,8 @@ public class Solution {
         // Step 5: Return the minimum number of transactions required to settle the debts
         return result;
     }
-TCC:O(N!) n is the number of debtors/creditors
+TCC:O(N!) n is the number of debtors/creditors we are trying all possible pairings of debtors and creditors to minimize the number of transactions.
+For each debtor, we try every possible person they can pay off, and the number of possible ways to arrange this (pairing people) grows factorially with the 
+number of people involved. Hence, the overall time complexity for the recursive solution is O(N!), where N is the number of people with non-zero balances.
+
 SC:O(N) for storing balances in the HashMap and List
