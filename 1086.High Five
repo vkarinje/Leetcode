@@ -50,8 +50,34 @@ class Solution {
 
 
         }
-        int[][] ansArray=new int[ans.size()][];
-        return ans.toArray(ansArray);
+        int[][] ansArray=new int[ans.size()][];// to convert into 2d array. ans.size() tells how many students are there. ans=[{1,91},{1,89},
+                                                                                                                                {2,99}, {2,87}] this is a list of int array.
+        return ans.toArray(ansArray);// converting ans to arrayof 2D[[1,91], [1,89],
+                                                                     [2,99],[2,87]]
     }
 }TC:O(n)
 SC:O(m) m is the number of unique student ids.
+
+Time Complexity:
+Insertion and removal in PriorityQueue is 
+O(log5)=O(1) since the size is capped at 5.
+Overall time complexity is 
+O(Nlog5)=O(N), where 
+N is the number of scores.
+Space Complexity:
+O(U×5) where 
+U is the number of unique student IDs since each student stores at most 5 scores.
+
+Step 1: Group Scores by Student ID
+Iterate through each score record.
+Group scores by student ID using a HashMap.
+For each student:
+Use a PriorityQueue to keep only the top 5 scores.
+If the queue size exceeds 5, remove the smallest element using poll().
+Step 2: Calculate Averages
+Iterate through each student in the map.
+Sum up the scores in the PriorityQueue.
+Calculate the average by dividing the sum by 5.
+Step 3: Prepare the Result
+Store the result as a list of integer arrays (List<int[]>).
+Convert the list to a 2D array before returning.
