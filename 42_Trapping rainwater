@@ -32,3 +32,6 @@ class Solution {
 }
 TC:O(n)
 SC:O(1)
+To solve the Trapping Rain Water problem efficiently, I used the two-pointer approach because it allows us to calculate the trapped water in O(N) time complexity with O(1) space complexity. 
+I initialized two pointers: left at the start and right at the end of the array, along with two variables leftbar and rightbar to keep track of the highest bars on both sides. By comparing leftbar and rightbar, 
+I moved the pointers inward. If leftbar was smaller, I checked the left pointer, calculated the water trapped if any, and updated leftbar. Otherwise, I did the same for the right pointer.
