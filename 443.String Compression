@@ -1,0 +1,67 @@
+class Solution {
+    public int compress(char[] chars) {
+        // Get the length of the input character array
+        int n = chars.length;
+        // Index to keep track of the position to write the compressed characters
+        int idx = 0;
+
+        // Loop through the character array
+        for (int i = 0; i < n; i++) {
+            // Store the current character
+            char ch = chars[i];
+            // Initialize the count of the current character
+            int count = 0;
+
+            // Count the number of consecutive occurrences of the current character
+            while (i < n && chars[i] == ch) {
+                count++; // Increment the count
+                i++;     // Move to the next character
+            }
+
+            // After the loop, 'i' is one position ahead, so adjust it
+            i--;
+
+            // If the character occurs only once, just store the character
+            if (count == 1) {
+                chars[idx++] = ch;
+            } else {
+                // Store the character
+                chars[idx++] = ch;
+                // Convert the count to a character array and store each digit
+                for (char digit : Integer.toString(count).toCharArray()) {
+                    chars[idx++] = digit;
+                }
+            }
+        }
+
+        // Return the new length of the compressed array
+        return idx;
+    }
+}
+To solve this problem, I will use a two-pointer approach for in-place compression, counting consecutive characters and writing the compressed version directly to the input array. 
+One pointer (i) to read each character in the array.
+Another pointer (idx) to write the compressed version of the characters.
+For each character, count how many times it repeats consecutively.
+If the character occurs only once, just write the character.
+If it repeats, write the character followed by its count.
+Start with idx = 0 to keep track of where to write.
+Loop through the array using i as the reading pointer.
+For each character:
+Count its consecutive occurrences.
+Write the character at idx.
+If the count > 1, convert the count to a string and write each digit at idx.
+Continue this until all characters are processed.
+Return idx, which represents the new length of the compressed array.
+Time Complexity Analysis:
+
+O(N) where N is the length of the input array:
+The array is traversed once using pointer i.
+The writing pointer (idx) also moves linearly across the array.
+Even when writing counts, the total number of digits written is proportional to the number of characters.
+Overall, the work done is linear with respect to the array length.
+Space Complexity Analysis:
+
+O(1):
+Compression is done in-place within the input array.
+Only a few variables (idx, i, ch, count) are used, which do not depend on the input size.
+A small temporary character array is used to store digits, but its size is constant relative to the input.
