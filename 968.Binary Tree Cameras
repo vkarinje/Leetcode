@@ -1,0 +1,62 @@
+class Solution {
+    // This variable keeps track of the total number of cameras needed
+    private int numOfCameras = 0;
+    
+    // Main function to find the minimum number of cameras needed to monitor the whole tree
+    public int minCameraCover(TreeNode root) {
+        // If the root itself is NOT MONITORED, add one more camera
+        // Otherwise, return the current number of cameras
+        return dfs(root) == -1 ? numOfCameras + 1 : numOfCameras;
+    }
+    
+    // DFS function to traverse the tree and decide camera placement
+    // It returns the state of the node:
+    // -1 -> NOT MONITORED (needs a camera)
+    //  0 -> MONITORED (covered by a child camera, no camera at this node)
+    //  1 -> HAS CAMERA (this node has a camera)
+    private int dfs(TreeNode root) {
+        // If it's a null node, it's considered MONITORED (because there is nothing to be monitored)
+        if (root == null) return 0;
+        
+        // Recursively check the state of left and right children
+        int left = dfs(root.left);
+        int right = dfs(root.right);
+        
+        // If either child is NOT MONITORED, this node needs to have a camera
+        if (left == -1 || right == -1) {
+            numOfCameras++;  // Place a camera at this node
+            return 1;        // This node now HAS CAMERA
+        }
+        
+        // If either child has a camera, this node is MONITORED
+        if (left == 1 || right == 1)
+            return 0;        // This node is MONITORED
+        
+        // If both children are MONITORED but have no cameras,
+        // this node is NOT MONITORED and needs a camera from the parent
+        return -1;
+    }
+}
+We need to place the minimum number of cameras to monitor all nodes in a binary tree. A camera at a node can monitor its parent, itself, and its immediate children. Is it safe to assume that the tree can be unbalanced or even null?
+We use a bottom up greedy DFS approach because it lets us decide where to place cameras efficiently. By starting from the leaves and moving upwards, we ensure that we place cameras at the optimal nodes (typically the parents of leaf nodes)
+private int numOfCameras = 0;
+
+Keeps track of the total number of cameras needed.
+public int minCameraCover(TreeNode root) {...}
+
+Starts the DFS traversal from the root.
+Checks if the root is unmonitored (-1). If so, add one more camera to the root.
+Returns the total count of cameras.
+private int dfs(TreeNode root) {...}
+
+Base Case: If the node is null, it is considered monitored (0) since no camera is needed.
+Recursive Case:
+Traverse left and right children (int left = dfs(root.left); int right = dfs(root.right);).
+If any child is not monitored (-1), place a camera at the current node (numOfCameras++) and return 1.
+If any child has a camera (1), the current node is monitored (0).
+If both children are monitored but have no camera, return -1 to indicate the current node is not monitored.
+
+Time Complexity: 𝑂(𝑁)where 𝑁 is the number of nodes, since each node is visited exactly once.
+Space Complexity: O(H) where H is the height of the tree due to the recursion stack
+This solution efficiently uses a greedy DFS approach to place the minimum number of cameras. It does so by analyzing child nodes before deciding on the parent, ensuring optimal placements. The complexity is 
+O(N) in time and O(H) in space, making it suitable for large trees.
