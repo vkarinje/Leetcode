@@ -1,0 +1,130 @@
+class Solution {
+    // Main function to calculate the minimum number of transactions required to settle the debts.
+    public int minTransfers(int[][] transactions) {
+        // Create a map to track the net balance of each person
+        HashMap<Integer, Integer> balance = new HashMap<>();
+        
+        // Loop through each transaction to update the balances of the involved parties
+        for (int[] transaction : transactions) {
+            int from = transaction[0];  // Person sending money
+            int to = transaction[1];    // Person receiving money
+            int amount = transaction[2]; // Amount of money being transferred
+
+            // Update the balance of the sender (decrease their balance by the amount they sent)
+            balance.put(from, balance.getOrDefault(from, 0) - amount);
+            
+            // Update the balance of the receiver (increase their balance by the amount they received)
+            balance.put(to, balance.getOrDefault(to, 0) + amount);
+        }
+
+        // Convert the balance map values to a list of non-zero balances (debts)
+        return settle(0, new ArrayList<>(balance.values()));
+    }
+
+    // Recursive helper function to minimize the number of transactions
+    private int settle(int start, List<Integer> debt) {
+        // Skip all people with zero balance (they don't need to be involved in transactions)
+        while (start < debt.size() && debt.get(start) == 0) {
+            start++;  // Move to the next non-zero balance
+        }
+
+        // If we've reached the end of the list, it means all debts have been settled
+        if (start == debt.size()) return 0;
+
+        // Initialize result to the maximum possible value (we're looking for the minimum number of transactions)
+        int result = Integer.MAX_VALUE;
+
+        // Try settling the current person's debt (at 'start') with each other person (at 'i')
+        for (int i = start + 1; i < debt.size(); i++) {
+            // Only settle debts between people who owe money and those who are owed money (opposite signs)
+            if (debt.get(i) * debt.get(start) < 0) {
+                // Settle debt: adjust the balance of person 'i' to account for the transaction with person 'start'
+                debt.set(i, debt.get(i) + debt.get(start));
+
+                // Recursively settle the remaining debts, adding 1 transaction to the result
+                result = Math.min(result, 1 + settle(start + 1, debt));
+
+                // Backtrack: undo the settlement to try other possibilities
+                debt.set(i, debt.get(i) - debt.get(start));
+            }
+        }
+
+        // Return the minimum number of transactions required to settle the debts
+        return result;
+    }
+}
+TC:O(N!)
+SC:O(N)
+
+
+Greedy approach
+
+import java.util.*;
+
+public class Solution {
+    
+    // Main function to calculate the minimum number of transactions required to settle the debts
+    public int minTransfers(int[][] transactions) {
+        // Step 1: Create a map to track the net balance of each person
+        Map<Integer, Integer> balance = new HashMap<>();
+        
+        // Step 2: Loop through each transaction to update the balances of the involved parties
+        for (int[] transaction : transactions) {
+            int from = transaction[0];  // Person sending money
+            int to = transaction[1];    // Person receiving money
+            int amount = transaction[2]; // Amount of money being transferred
+
+            // Update the balance of the sender (decrease their balance by the amount they sent)
+            balance.put(from, balance.getOrDefault(from, 0) - amount);
+            
+            // Update the balance of the receiver (increase their balance by the amount they received)
+            balance.put(to, balance.getOrDefault(to, 0) + amount);
+        }
+
+        // Step 3: Filter out people with zero balance (they don't need to be involved)
+        List<Integer> debtorsAndCreditors = new ArrayList<>();
+        for (int netBalance : balance.values()) {
+            if (netBalance != 0) {
+                debtorsAndCreditors.add(netBalance);  // Add non-zero balances to the list
+            }
+        }
+
+        // Step 4: Try to settle the debts greedily, starting from index 0
+        return settle(debtorsAndCreditors, 0);  // Start the debt settlement process
+    }
+
+    // Helper function to minimize the number of transactions
+    private int settle(List<Integer> debtorsAndCreditors, int start) {
+        // Step 1: Skip all people with zero balance (they don't need to be involved in transactions)
+        while (start < debtorsAndCreditors.size() && debtorsAndCreditors.get(start) == 0) {
+            start++;  // Move to the next non-zero balance
+        }
+
+        // Step 2: If all debts are settled (all balances are zero), return 0 transactions
+        if (start == debtorsAndCreditors.size()) return 0;
+
+        // Step 3: Initialize the result to the maximum possible value (we want to minimize the number of transactions)
+        int result = Integer.MAX_VALUE;
+
+        // Step 4: Try to match the current person (start) with each other person (i)
+        for (int i = start + 1; i < debtorsAndCreditors.size(); i++) {
+            // Only settle between debtors and creditors (opposite signs of balance)
+            if (debtorsAndCreditors.get(i) * debtorsAndCreditors.get(start) < 0) {
+                // Settle the debt between the current person (start) and the other person (i)
+                
+                // Adjust the balance of person 'i' by adding person 'start' balance (settling the debt)
+                debtorsAndCreditors.set(i, debtorsAndCreditors.get(i) + debtorsAndCreditors.get(start));
+
+                // Recursively settle the remaining debts, adding 1 to the transaction count
+                result = Math.min(result, 1 + settle(debtorsAndCreditors, start + 1));
+
+                // Backtrack: Undo the settlement to try other possibilities
+                debtorsAndCreditors.set(i, debtorsAndCreditors.get(i) - debtorsAndCreditors.get(start));
+            }
+        }
+
+        // Step 5: Return the minimum number of transactions required to settle the debts
+        return result;
+    }
+TCC:O(N!) n is the number of debtors/creditors
+SC:O(N) for storing balances in the HashMap and List
