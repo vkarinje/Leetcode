@@ -13,5 +13,14 @@ class Solution {
         return -1;
     }
 }
-TC:O(N)
-SC:O(1)
+TC:O(N) as each loop iterates through the string only once
+SC:O(1)  the frequency array has a fixed size of 26, regardless of the input size
+
+I used a frequency counting approach with an array of size 26, as the string only contains lowercase English letters ('a' to 'z'). 
+This allows for constant space complexity
+I created an integer array freq of size 26 to store the frequency of each character. Each index corresponds to a letter ('a' -> 0, 'b' -> 1, ..., 'z' -> 25).
+I calculate the index by subtracting 'a' from the character, which gives a value between 0 and 25.
+The first loop goes through the string and updates the frequency count for each character.
+In the second loop, I check each character in the order of their appearance.
+If the frequency is 1, it means that character is unique, so I return the index immediately.
+This ensures we get the first non-repeating character.
