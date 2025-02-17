@@ -130,4 +130,11 @@ TCC:O(N!) n is the number of debtors/creditors we are trying all possible pairin
 For each debtor, we try every possible person they can pay off, and the number of possible ways to arrange this (pairing people) grows factorially with the 
 number of people involved. Hence, the overall time complexity for the recursive solution is O(N!), where N is the number of people with non-zero balances.
 
-SC:O(N) for storing balances in the HashMap and List
+SC:O(N) for storing balances in the HashMap and List. N is the number of people with non-zero balances.
+First, calculate the balance for each person. If a person owes money, their balance is negative; if they're owed money, their balance is positive.
+We can do this by iterating over all transactions and updating the balance for the involved people.
+After calculating the balances, we only need to consider people who have non-zero balances (i.e., people who owe or are owed money).
+To minimize the number of transactions, we use a recursive approach:
+Pick one person who still has a balance (either positive or negative).
+Try to settle their balance by matching them with others who have the opposite balance.
+Continue this process until all balances are settled.
