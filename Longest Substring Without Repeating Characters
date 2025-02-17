@@ -21,3 +21,48 @@ class Solution(object):
 time:O(n)
 space:O(min(m,n))
 where 'n' is the length of the input string s, and 'm' is the size of the character set (i.e., the number of distinct characters in the input string)
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        HashSet<Character> set=new HashSet<>();
+        int left=0;
+        int right=0;
+        int maxlength=0;
+        while(left<s.length()){
+            if(!set.contains(s.charAt(left))){
+                set.add(s.charAt(left));
+                maxlength=Math.max(maxlength,set.size());
+                left++;
+            }
+            else{
+                set.remove(s.charAt(right));
+                right++;
+            }
+
+        }
+        return maxlength;
+
+        
+    }
+}
+
+
+I use a HashSet to store unique characters in the current window.
+left and right both start at the beginning of the string, and maxLength keeps track of the longest substring found.
+Expanding the Window:
+
+I expand the window by moving the right pointer one character at a time.
+If the character at right is not in the set, it's unique within the window:
+Add it to the HashSet.
+Update the maximum length using maxLength = Math.max(maxLength, right - left + 1).
+Move right to the next position.
+Shrinking the Window:
+
+If the character at right is already in the set, it means we have a duplicate.
+To maintain uniqueness, I move the left pointer to the right by one position at a time until the duplicate character is removed from the set.
+This effectively shrinks the window from the left side.
+Continue the Process:
+
+This continues until right has checked all characters in the string.
+
+Both pointers left and right traverse the string only once, so the time complexity is O(N) where N is the length of the string.
+The HashSet stores at most the unique characters in the substring, so the space complexity is O(min(N,M)) where m is size of the character set
