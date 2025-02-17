@@ -16,10 +16,10 @@ class Solution {
                 }
             }
             else if(c=='L'){//(anti-clockwise)
-                direction=direction==0?3:(direction-1);//ternary operator or conditional operator//if direction is 3 return 0. 3 means robot is facing swest. moving left will take it to north . north is 0. suppose if robot is facing south(2). movinf left will take it to east(1). so we are doing direction-1
+                direction=direction==0?3:(direction-1);//ternary operator or conditional operator//if direction is 0 the robot is facing towards north now. Moving left should take it to south which is 3. suppose if robot is facing south(2). movinf left will take it to east(1). so we are doing direction-1
             }
             else if(c=='R'){//clockwise
-                direction=(direction+1)%4;//suppose robot is facing north(0). when moving right is goes to east
+                direction=(direction+1)%4;//suppose robot is facing north(0). when moving right it goes to east
             }
         }
         if(direction!=0||(x==0 && y==0)){//when the final direction is not facing north or when the x and y cordinates are at origin return true;
