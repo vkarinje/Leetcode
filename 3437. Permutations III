@@ -66,15 +66,23 @@ class Solution {
 This problem generates all permutations of numbers from 1 to n, ensuring no two consecutive numbers are both odd or both even.
 
 Approach:
-We use backtracking to build permutations step by step, storing numbers in a candidate array. A used boolean array tracks which numbers are already in the permutation. We check at each step to ensure no two consecutive
-numbers have the same parity (odd/even).
+Start by creating an array nums that holds the numbers from 1 to n. This array will be used to generate permutations.
+We also initialize an array candidate to store the current permutation as we build it.
+Use a boolean[] used array to track whether a number has been used in the current permutation.
+
+This is a backtracking problem. We use a recursive helper function permute to explore all the possible permutations.
+Base Case: When we have filled the candidate array completely (i.e., pos == nums.length), we know we have a valid permutation. 
+We then convert this permutation into a list and add it to the permutations list.
+
+For each position pos in the permutation, we try every number in nums that hasn't been used yet.
+Before placing the number at position pos, we check if it satisfies the parity constraint: if the previous number (candidate[pos-1]) is even,
+the current number must be odd, and vice versa. This ensures adjacent elements have different parity.
+If the parity constraint is satisfied, we place the number at pos, mark it as used, and recursively try to fill the next position.
 
 Time Complexity: O(n! * n)
 
-There are n! possible permutations.
-Each permutation takes O(n) to copy to the result list.
+We generate n! permutations, and for each permutation, we perform up to n checks for the parity condition
 Space Complexity: O(n! * n)
 
-Storing all permutations requires n! arrays of length n.
-Recursive call stack uses O(n) space.
+For storing all the valid permutations, the space required is proportional to the number of permutations (n!) and the length of each permutation (n)
 This approach is efficient because it prunes invalid branches early by checking the odd-even condition, reducing unnecessary calculations.
