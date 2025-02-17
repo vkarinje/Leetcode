@@ -41,3 +41,21 @@ Casts them to long to avoid integer overflow when dealing with edge cases like I
 }
 TC:O(n) where n is the number of digits in the decimal represnetation.
 SC:O(n). HashMap stores O(n) uniqure remainders where n is the number of digits in the fractional part. StringBuilder also stores O(N) for the final resul;t. So overall is O(n).
+Check for zero numerator and denominator.
+Determine the sign of the result by checking if one value is negative.
+Step 2: Integer Division
+
+Calculate the integer part using num / den.
+Calculate the remainder using num % den.
+Append the integer part to the result.
+Step 3: Fractional Part Calculation
+
+If there's no remainder, return the result.
+Otherwise, append a decimal point and start calculating the decimal places.
+Use a HashMap to store each remainder and its corresponding position in the result.
+Step 4: Detecting Repetition
+
+Multiply the remainder by 10 and calculate the next digit.
+If the remainder repeats (exists in the HashMap), it means the decimal is repeating.
+Insert a ( at the stored position and append ) at the end.
+Break the loop and return the result.
